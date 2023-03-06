@@ -46,7 +46,7 @@ class _MainFoodPageState extends State<MainFoodPage> {
                   ),
                   Center(
                     child: Container(
-                      width: (Dimensions.width20) * 2 + Dimensions.width20,
+                      width: (Dimensions.width20) * 2 + Dimensions.width5,
                       height: (Dimensions.height20) * 2 + Dimensions.height5,
                       decoration: BoxDecoration(
                         color: AppColor.mainColor,
@@ -63,7 +63,7 @@ class _MainFoodPageState extends State<MainFoodPage> {
               ),
             ),
           ),
-          const FoodPageBody(),
+          const Expanded(child: SingleChildScrollView(child: FoodPageBody())),
         ],
       ),
     );
