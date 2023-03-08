@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:get_x/utils/colors.dart';
 import 'package:get_x/widgets/icon_text.dart';
 import 'package:get_x/widgets/test_widgets.dart';
+import 'package:get_x/widgets/info_card.dart';
 import 'package:get_x/utils/dimensions.dart';
 
 class FoodPageBody extends StatefulWidget {
@@ -236,57 +237,9 @@ class _FoodPageBodyState extends State<FoodPageBody> {
                 ],
               ),
               child: Container(
-                padding: EdgeInsets.only(
-                    top: Dimensions.height15,
-                    left: Dimensions.width15,
-                    right: Dimensions.width15),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    BigText(text: "Cupertino menu"),
-                    SizedBox(height: Dimensions.height10),
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Wrap(
-                          children: List.generate(
-                              5,
-                              (index) => Icon(Icons.star,
-                                  color: AppColor.mainColor,
-                                  size: Dimensions.height20)),
-                        ),
-                        SizedBox(width: Dimensions.width10),
-                        SmallText(text: "2.5"),
-                        SizedBox(width: Dimensions.width10),
-                        SmallText(text: "4569"),
-                        SizedBox(width: Dimensions.width10),
-                        SmallText(text: "comments"),
-                        SizedBox(height: Dimensions.height20),
-                      ],
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        IconText(
-                          icon: Icons.circle_sharp,
-                          text: "Normal",
-                          iconColor: AppColor.iconColor1,
-                        ),
-                        IconText(
-                          icon: Icons.location_on,
-                          text: "1.7km",
-                          iconColor: AppColor.mainColor,
-                        ),
-                        IconText(
-                          icon: Icons.access_time_rounded,
-                          text: "32min",
-                          iconColor: AppColor.iconColor2,
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
+                  padding: EdgeInsets.only(
+                      left: Dimensions.width15, right: Dimensions.width15),
+                  child: const InfoCard(text: "Chinese slide")),
             ),
           ),
         ],
