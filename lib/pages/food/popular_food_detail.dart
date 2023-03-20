@@ -122,9 +122,26 @@ class PopularFoodDetail extends StatelessWidget {
                         const InfoCard(text: "Chinese slide"),
                         SizedBox(height: Dimensions.height20),
                         BigText(text: "Introduction"),
-                        const ExpandableDescriptionText(
-                            text:
-                                "In some cases, it’s handy to cache images as they’re downloaded from the web, so they can be used offline. For this purpose, use the cached_network_image package. In some cases, it’s handy to cache images as they’re downloaded from the web, so they can be used offline. For this purpose, use the cached_network_image package. In some cases, it’s handy to cache images as they’re downloaded from the web, so they can be used offline. For this purpose, use the cached_network_image package. In some cases, it’s handy to cache images as they’re downloaded from the web, so they can be used offline. For this purpose, use the cached_network_image package. In some cases, it’s handy to cache images as they’re downloaded from the web, so they can be used offline. For this purpose, use the cached_network_image package. In some cases, it’s handy to cache images as they’re downloaded from the web, so they can be used offline. For this purpose, use the cached_network_image package. In some cases, it’s handy to cache images as they’re downloaded from the web, so they can be used offline. For this purpose, use the cached_network_image package. In some cases, it’s handy to cache images as they’re downloaded from the web, so they can be used offline. For this purpose, use the cached_network_image package."),
+                        Padding(
+                          padding: EdgeInsets.only(
+                              top: Dimensions.height5,
+                              bottom: Dimensions.height5),
+                          child: SizedBox(
+                            width: MediaQuery.of(context).size.width,
+                            height: Dimensions.height30 * 10,
+                            child: Column(
+                              children: const [
+                                Expanded(
+                                  child: SingleChildScrollView(
+                                    child: ExpandableDescriptionText(
+                                        text:
+                                            "In some cases, it’s handy to cache images as they’re downloaded from the web, so they can be used offline. For this purpose, use the cached_network_image package. In some cases, it’s handy to cache images as they’re downloaded from the web, so they can be used offline. For this purpose, use the cached_network_image package. In some cases, it’s handy to cache images as they’re downloaded from the web, so they can be used offline. For this purpose, use the cached_network_image package. In some cases, it’s handy to cache images as they’re downloaded from the web, so they can be used offline. For this purpose, use the cached_network_image package. In some cases, it’s handy to cache images as they’re downloaded from the web, so they can be used offline. For this purpose, use the cached_network_image package. In some cases, it’s handy to cache images as they’re downloaded from the web, so they can be used offline. For this purpose, use the cached_network_image package. In some cases, it’s handy to cache images as they’re downloaded from the web, so they can be used offline."),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
                       ],
                     ),
                   ),
