@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get_x/pages/food/popular_food_detail.dart';
-import 'package:get_x/pages/home/main_food_page.dart';
+// import 'package:get_x/pages/food/popular_food_detail.dart';
+import 'package:get_x/pages/food/recomended_food_detail.dart';
+// import 'package:get_x/pages/home/main_food_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -17,7 +18,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Get X',
       theme: ThemeData(),
-      home: const PopularFoodDetail(),
+      home: const RecommendedFoodDetail(),
     );
   }
 }
