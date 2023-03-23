@@ -3,11 +3,15 @@
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_x/controllers/popular_product_controller.dart';
+import 'package:get_x/models/popular_product_model.dart';
 import 'package:get_x/utils/colors.dart';
 import 'package:get_x/widgets/icon_text.dart';
 import 'package:get_x/widgets/test_widgets.dart';
 import 'package:get_x/widgets/info_card.dart';
 import 'package:get_x/utils/dimensions.dart';
+
+import '../../utils/app_constant.dart';
 
 class FoodPageBody extends StatefulWidget {
   const FoodPageBody({super.key});
@@ -42,28 +46,34 @@ class _FoodPageBodyState extends State<FoodPageBody> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        // slider
-        Container(
-          height: Dimensions.foodMainHeaderHeight,
-          child: PageView.builder(
-              controller: pageController,
-              itemCount: 5,
-              itemBuilder: (context, index) {
-                return _buildPageItem(index);
-              }),
-        ),
+        // slider pp.popularProductList[index]
+        GetBuilder<PopularProductController>(builder: (pp) {
+          return Container(
+            height: Dimensions.foodMainHeaderHeight,
+            child: PageView.builder(
+                controller: pageController,
+                itemCount: pp.popularProductList.length,
+                itemBuilder: (context, index) {
+                  return _buildPageItem(index, pp.popularProductList[index]);
+                }),
+          );
+        }),
         // dots section
-        DotsIndicator(
-          dotsCount: 5,
-          position: _currentPageValue,
-          decorator: DotsDecorator(
-            activeColor: AppColor.mainColor,
-            size: const Size.square(9.0),
-            activeSize: const Size(18.0, 9.0),
-            activeShape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(5.0)),
-          ),
-        ),
+        GetBuilder<PopularProductController>(builder: (pp) {
+          return DotsIndicator(
+            dotsCount: pp.popularProductList.length > 1
+                ? pp.popularProductList.length
+                : 1,
+            position: _currentPageValue,
+            decorator: DotsDecorator(
+              activeColor: AppColor.mainColor,
+              size: const Size.square(9.0),
+              activeSize: const Size(18.0, 9.0),
+              activeShape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(5.0)),
+            ),
+          );
+        }),
         // popular section
         SizedBox(height: Dimensions.height30),
         Container(
@@ -163,7 +173,7 @@ class _FoodPageBodyState extends State<FoodPageBody> {
     );
   }
 
-  Widget _buildPageItem(int index) {
+  Widget _buildPageItem(int index, Products product) {
     Matrix4 matrix = Matrix4.identity();
     if (index == _currentPageValue.floor()) {
       var currentScale = 1 - (_currentPageValue - index) * (1 - _scaleFactor);
@@ -200,10 +210,10 @@ class _FoodPageBodyState extends State<FoodPageBody> {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(Dimensions.height30),
               color: index.isEven ? Colors.amber : Colors.blueGrey,
-              image: const DecorationImage(
+              image: DecorationImage(
                 fit: BoxFit.cover,
-                image: AssetImage(
-                  'assets/image/image3.jpeg',
+                image: NetworkImage(
+                  "${AppConstants.ROOT_URL}/uploads/${product.img!}",
                 ),
               ),
             ),
@@ -239,7 +249,7 @@ class _FoodPageBodyState extends State<FoodPageBody> {
               child: Container(
                   padding: EdgeInsets.only(
                       left: Dimensions.width15, right: Dimensions.width15),
-                  child: const InfoCard(text: "Chinese slide")),
+                  child: InfoCard(text: product.name!)),
             ),
           ),
         ],
