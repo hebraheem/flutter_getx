@@ -7,6 +7,8 @@ import 'package:get/get.dart';
 import 'package:get_x/controllers/popular_product_controller.dart';
 import 'package:get_x/pages/home/main_food_page.dart';
 
+import 'controllers/recommended_product_controller.dart';
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await dep.init();
@@ -20,6 +22,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Get.find<PopularProductController>().getPopularProductList();
+    Get.find<RecommendedProductController>().getRecommendedList();
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Get X',
