@@ -1,9 +1,11 @@
+import 'package:get_x/models/popular_product_model.dart';
+
 class RecommendedProductModel {
   int? _totalSize;
   int? _typeId;
   int? _offset;
-  List<RecommendedProductsModel>? _products;
-  List<RecommendedProductsModel>? get products => _products;
+  List<Products>? _products;
+  List<Products>? get products => _products;
 
   RecommendedProductModel(
       {required totalSize,
@@ -21,9 +23,9 @@ class RecommendedProductModel {
     _typeId = json['type_id'];
     _offset = json['offset'];
     if (json['products'] != null) {
-      _products = <RecommendedProductsModel>[];
+      _products = <Products>[];
       json['products'].forEach((v) {
-        _products!.add(RecommendedProductsModel.fromJson(v));
+        _products!.add(Products.fromJson(v));
       });
     }
   }
@@ -40,55 +42,55 @@ class RecommendedProductModel {
   }
 }
 
-class RecommendedProductsModel {
-  int? id;
-  String? name;
-  String? description;
-  int? price;
-  int? stars;
-  String? img;
-  String? location;
-  String? createdAt;
-  String? updatedAt;
-  int? typeId;
+// class Products {
+//   int? id;
+//   String? name;
+//   String? description;
+//   int? price;
+//   int? stars;
+//   String? img;
+//   String? location;
+//   String? createdAt;
+//   String? updatedAt;
+//   int? typeId;
 
-  RecommendedProductsModel(
-      {this.id,
-      this.name,
-      this.description,
-      this.price,
-      this.stars,
-      this.img,
-      this.location,
-      this.createdAt,
-      this.updatedAt,
-      this.typeId});
+//   Products(
+//       {this.id,
+//       this.name,
+//       this.description,
+//       this.price,
+//       this.stars,
+//       this.img,
+//       this.location,
+//       this.createdAt,
+//       this.updatedAt,
+//       this.typeId});
 
-  RecommendedProductsModel.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    name = json['name'];
-    description = json['description'];
-    price = json['price'];
-    stars = json['stars'];
-    img = json['img'];
-    location = json['location'];
-    createdAt = json['created_at'];
-    updatedAt = json['updated_at'];
-    typeId = json['type_id'];
-  }
+//   Products.fromJson(Map<String, dynamic> json) {
+//     id = json['id'];
+//     name = json['name'];
+//     description = json['description'];
+//     price = json['price'];
+//     stars = json['stars'];
+//     img = json['img'];
+//     location = json['location'];
+//     createdAt = json['created_at'];
+//     updatedAt = json['updated_at'];
+//     typeId = json['type_id'];
+//   }
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['id'] = id;
-    data['name'] = name;
-    data['description'] = description;
-    data['price'] = price;
-    data['stars'] = stars;
-    data['img'] = img;
-    data['location'] = location;
-    data['created_at'] = createdAt;
-    data['updated_at'] = updatedAt;
-    data['type_id'] = typeId;
-    return data;
-  }
-}
+//   Map<String, dynamic> toJson() {
+//     final Map<String, dynamic> data = <String, dynamic>{};
+//     data['id'] = id;
+//     data['name'] = name;
+//     data['description'] = description;
+//     data['price'] = price;
+//     data['stars'] = stars;
+//     data['img'] = img;
+//     data['location'] = location;
+//     data['created_at'] = createdAt;
+//     data['updated_at'] = updatedAt;
+//     data['type_id'] = typeId;
+//     return data;
+//   }
+// }

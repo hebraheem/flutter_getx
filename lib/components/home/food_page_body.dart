@@ -14,7 +14,7 @@ import 'package:get_x/widgets/test_widgets.dart';
 import 'package:get_x/widgets/info_card.dart';
 import 'package:get_x/utils/dimensions.dart';
 
-import '../../models/recommended_product_model.dart';
+// import '../../models/recommended_product_model.dart';
 import '../../utils/helpers.dart';
 
 class FoodPageBody extends StatefulWidget {
@@ -110,8 +110,7 @@ class _FoodPageBodyState extends State<FoodPageBody> {
                   physics: const NeverScrollableScrollPhysics(),
                   itemCount: rm.recommendedProductList.length,
                   itemBuilder: (context, index) {
-                    final RecommendedProductsModel product =
-                        rm.recommendedProductList[index];
+                    final Products product = rm.recommendedProductList[index];
                     return Container(
                       margin: EdgeInsets.only(
                         left: Dimensions.width20,

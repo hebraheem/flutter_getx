@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:get_x/controllers/cart_controller.dart';
 import 'package:get_x/services/data/repository/popular_product_repo.dart';
 
+import '../models/cart_model.dart';
 import '../models/popular_product_model.dart';
 
 class PopularProductController extends GetxController implements GetxService {
@@ -69,4 +70,8 @@ class PopularProductController extends GetxController implements GetxService {
   }
 
   int get totalItems => _cart.totalCartQuantity;
+
+  List<CartM> get allCartItems {
+    return _cart.carts;
+  }
 }

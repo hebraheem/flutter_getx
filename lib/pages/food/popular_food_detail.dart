@@ -133,7 +133,10 @@ class PopularFoodDetail extends StatelessWidget {
                     final totalItemsInCart = cart.totalItems;
 
                     return GestureDetector(
-                      onTap: () {},
+                      onTap: () {
+                        if (totalItemsInCart < 1) return;
+                        Get.toNamed(Routes.cart);
+                      },
                       child: Stack(
                         children: [
                           const IconWidget(
