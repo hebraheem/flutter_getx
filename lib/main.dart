@@ -23,6 +23,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     Get.find<PopularProductController>().getPopularProductList();
     Get.find<RecommendedProductController>().getRecommendedList();
+
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Get X',

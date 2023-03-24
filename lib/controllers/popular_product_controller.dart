@@ -1,7 +1,6 @@
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_x/controllers/cart_controller.dart';
 import 'package:get_x/services/data/repository/popular_product_repo.dart';
-import 'package:get_x/utils/colors.dart';
 
 import '../models/popular_product_model.dart';
 
@@ -9,10 +8,13 @@ class PopularProductController extends GetxController implements GetxService {
   final PopularProductRepo popularProductRepo;
   bool _isLoading = false;
   bool get isLoading => _isLoading;
+  late CartController _cart;
+
+  int _inCartItems = 0;
+  int _quantity = 0;
 
   int get quantity => _quantity;
-
-  int _quantity = 0;
+  int get inCartItems => _inCartItems + _quantity;
 
   PopularProductController({required this.popularProductRepo});
   List<dynamic> _popularProduct = [];
@@ -35,12 +37,10 @@ class PopularProductController extends GetxController implements GetxService {
     if (isIncrement) {
       _quantity = _quantity + 1;
     } else {
-      if (_quantity == 0) {
+      if ((_inCartItems + _quantity) == 0) {
         Get.snackbar(
           "Item count",
           "item can't be negative",
-          backgroundColor: AppColor.mainColor,
-          colorText: Colors.white,
         );
         return;
       }
@@ -48,4 +48,25 @@ class PopularProductController extends GetxController implements GetxService {
     }
     update();
   }
+
+  void initProduct(CartController cart, Products product) {
+    _quantity = 0;
+    _inCartItems = 0;
+    _cart = cart;
+    var exist = false;
+    // get from storage _inCartItems = _inCartItems from storage
+    exist = cart.existInCart(product);
+    if (exist) {
+      _inCartItems = _cart.getQuantity(product);
+    }
+  }
+
+  void addItem(Products product) {
+    _cart.addItemToCart(_quantity, product, inCartItems);
+    _quantity = 0; // reset the quantity after adding
+    _inCartItems = _cart.getQuantity(product);
+    update();
+  }
+
+  int get totalItems => _cart.totalCartQuantity;
 }
