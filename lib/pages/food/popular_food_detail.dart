@@ -1,67 +1,93 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get_x/controllers/popular_product_controller.dart';
+import 'package:get_x/models/popular_product_model.dart';
+import 'package:get_x/pages/home/main_food_page.dart';
 import 'package:get_x/utils/colors.dart';
 import 'package:get_x/utils/dimensions.dart';
 import 'package:get_x/widgets/icon_widget.dart';
 import 'package:get_x/widgets/info_card.dart';
 import 'package:get_x/widgets/test_widgets.dart';
 
+import '../../routes/route.dart';
+import '../../utils/helpers.dart';
 import '../../widgets/expandable_description_text.dart';
 
 class PopularFoodDetail extends StatelessWidget {
-  const PopularFoodDetail({super.key});
+  final int pageId;
+  const PopularFoodDetail({required this.pageId, Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final product =
+        Get.find<PopularProductController>().popularProductList[pageId];
     return Scaffold(
         backgroundColor: Colors.white,
-        bottomNavigationBar: Container(
-          height: Dimensions.height20 * 6,
-          padding: EdgeInsets.only(
-              top: Dimensions.height10,
-              right: Dimensions.width20,
-              left: Dimensions.width20),
-          decoration: BoxDecoration(
-            color: AppColor.buttonBackgroundColor,
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(Dimensions.width20 * 2),
-              topRight: Radius.circular(Dimensions.width20 * 2),
-            ),
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Container(
-                padding: EdgeInsets.only(
-                    top: Dimensions.height20,
-                    bottom: Dimensions.height20,
-                    left: Dimensions.width20,
-                    right: Dimensions.width20),
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(Dimensions.width20)),
-                child: Row(
-                  children: [
-                    const Icon(
-                      Icons.remove,
-                      color: AppColor.signColor,
-                    ),
-                    SizedBox(width: Dimensions.width10),
-                    BigText(text: "0"),
-                    SizedBox(width: Dimensions.width10),
-                    const Icon(Icons.add, color: AppColor.signColor),
-                  ],
+        bottomNavigationBar: GetBuilder<PopularProductController>(
+          builder: (controller) {
+            return Container(
+              height: Dimensions.height20 * 6,
+              padding: EdgeInsets.only(
+                  top: Dimensions.height10,
+                  right: Dimensions.width20,
+                  left: Dimensions.width20),
+              decoration: BoxDecoration(
+                color: AppColor.buttonBackgroundColor,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(Dimensions.width20 * 2),
+                  topRight: Radius.circular(Dimensions.width20 * 2),
                 ),
               ),
-              Container(
-                padding: EdgeInsets.all(Dimensions.height20),
-                decoration: BoxDecoration(
-                    color: AppColor.mainColor,
-                    borderRadius:
-                        BorderRadius.circular(Dimensions.width20 * 2)),
-                child: BigText(text: "\$10 | Add to cart", color: Colors.white),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Container(
+                    padding: EdgeInsets.only(
+                        top: Dimensions.height20,
+                        bottom: Dimensions.height20,
+                        left: Dimensions.width20,
+                        right: Dimensions.width20),
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius:
+                            BorderRadius.circular(Dimensions.width20)),
+                    child: Row(
+                      children: [
+                        GestureDetector(
+                          onTap: () {
+                            controller.setQuantity(false);
+                          },
+                          child: const Icon(
+                            Icons.remove,
+                            color: AppColor.signColor,
+                          ),
+                        ),
+                        SizedBox(width: Dimensions.width10),
+                        BigText(text: controller.quantity.toString()),
+                        SizedBox(width: Dimensions.width10),
+                        GestureDetector(
+                            onTap: () {
+                              controller.setQuantity(true);
+                            },
+                            child: const Icon(Icons.add,
+                                color: AppColor.signColor)),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    padding: EdgeInsets.all(Dimensions.height20),
+                    decoration: BoxDecoration(
+                        color: AppColor.mainColor,
+                        borderRadius:
+                            BorderRadius.circular(Dimensions.width20 * 2)),
+                    child: BigText(
+                        text: "\$${product.price!} | Add to cart",
+                        color: Colors.white),
+                  ),
+                ],
               ),
-            ],
-          ),
+            );
+          },
         ),
         body: Stack(
           children: [
@@ -72,9 +98,9 @@ class PopularFoodDetail extends StatelessWidget {
               child: Container(
                 width: double.maxFinite,
                 height: (Dimensions.height20 * 14) + Dimensions.height10,
-                decoration: const BoxDecoration(
+                decoration: BoxDecoration(
                     image: DecorationImage(
-                  image: AssetImage('assets/image/image3.jpeg'),
+                  image: NetworkImage(Utils.buildImagePath(product.img!)),
                   fit: BoxFit.cover,
                 )),
               ),
@@ -86,11 +112,16 @@ class PopularFoodDetail extends StatelessWidget {
               right: Dimensions.width20,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: const [
-                  IconWidget(
-                    icon: Icons.arrow_back_ios,
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      Get.toNamed(Routes.getInitial());
+                    },
+                    child: const IconWidget(
+                      icon: Icons.arrow_back_ios,
+                    ),
                   ),
-                  IconWidget(
+                  const IconWidget(
                     icon: Icons.shopping_cart_outlined,
                   )
                 ],
@@ -119,7 +150,7 @@ class PopularFoodDetail extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const InfoCard(text: "Chinese slide"),
+                        InfoCard(text: product.name!),
                         SizedBox(height: Dimensions.height20),
                         BigText(text: "Introduction"),
                         Padding(
@@ -130,12 +161,11 @@ class PopularFoodDetail extends StatelessWidget {
                             width: MediaQuery.of(context).size.width,
                             height: Dimensions.height30 * 10,
                             child: Column(
-                              children: const [
+                              children: [
                                 Expanded(
                                   child: SingleChildScrollView(
                                     child: ExpandableDescriptionText(
-                                        text:
-                                            "In some cases, it’s handy to cache images as they’re downloaded from the web, so they can be used offline. For this purpose, use the cached_network_image package. In some cases, it’s handy to cache images as they’re downloaded from the web, so they can be used offline. For this purpose, use the cached_network_image package. In some cases, it’s handy to cache images as they’re downloaded from the web, so they can be used offline. For this purpose, use the cached_network_image package. In some cases, it’s handy to cache images as they’re downloaded from the web, so they can be used offline. For this purpose, use the cached_network_image package. In some cases, it’s handy to cache images as they’re downloaded from the web, so they can be used offline. For this purpose, use the cached_network_image package. In some cases, it’s handy to cache images as they’re downloaded from the web, so they can be used offline. For this purpose, use the cached_network_image package. In some cases, it’s handy to cache images as they’re downloaded from the web, so they can be used offline."),
+                                        text: product.description!),
                                   ),
                                 ),
                               ],

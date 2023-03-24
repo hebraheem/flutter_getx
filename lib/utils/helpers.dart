@@ -1,7 +1,7 @@
 import 'app_constant.dart';
 
 class Utils {
-  static buildImagePath<String>(String path) {
+  static String buildImagePath(String path) {
     return "${AppConstants.ROOT_URL}/uploads/$path";
   }
 }

@@ -1,11 +1,11 @@
 // library import
 import 'package:flutter/material.dart';
+import 'package:get_x/routes/route.dart';
 import 'package:get_x/services/dependencies.dart' as dep;
 
 //widget import
 import 'package:get/get.dart';
 import 'package:get_x/controllers/popular_product_controller.dart';
-import 'package:get_x/pages/home/main_food_page.dart';
 
 import 'controllers/recommended_product_controller.dart';
 
@@ -27,7 +27,9 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Get X',
       theme: ThemeData(),
-      home: const MainFoodPage(),
+      initialRoute: Routes.initial,
+      getPages: Routes.routes,
+      // home: const MainFoodPage(),
     );
   }
 }
