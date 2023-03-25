@@ -10,6 +10,12 @@ class CartController extends GetxController {
   final Map<int, CartM> _items = {};
   Map<int, CartM> get cartItems => _items;
   List<int> cartToRemove = [];
+
+  /*
+  * for storage only
+  */
+  List<CartM> storageItems = [];
+
   void addItemToCart(int quantity, Products product, int? inCartItems) {
     if (quantity == 0 && inCartItems! > 0) {
       Get.snackbar(
@@ -55,6 +61,8 @@ class CartController extends GetxController {
         );
       });
     }
+
+    cartRepo.cartInStorage(carts);
     update();
   }
 
@@ -99,5 +107,18 @@ class CartController extends GetxController {
       total += value.price! * value.quantity!;
     });
     return total;
+  }
+
+  List<CartM> getCartData() {
+    setCart = cartRepo.getCartList();
+    return storageItems;
+  }
+
+  set setCart(List<CartM> data) {
+    storageItems = data;
+
+    for (var item in storageItems) {
+      _items.putIfAbsent(item.product!.id!, () => item);
+    }
   }
 }

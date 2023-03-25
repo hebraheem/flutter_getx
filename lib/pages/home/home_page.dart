@@ -1,8 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get_x/controllers/popular_product_controller.dart';
 import 'package:get_x/pages/cart/cart_page.dart';
 import 'package:get_x/pages/home/main_food_page.dart';
 import 'package:get_x/utils/colors.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
+
+import '../../controllers/cart_controller.dart';
+import '../../utils/dimensions.dart';
+import '../../widgets/icon_widget.dart';
+import '../../widgets/test_widgets.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -12,7 +19,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  int _activeIndex = 0;
   late PersistentTabController _controller;
 
   List pages = [
@@ -26,7 +32,7 @@ class _HomePageState extends State<HomePage> {
     return [
       const MainFoodPage(),
       const Center(child: Text(" page 2")),
-      const CartPage(),
+      const Center(child: Text(" page 3")),
       const Center(child: Text("page 4")),
     ];
   }
@@ -46,7 +52,37 @@ class _HomePageState extends State<HomePage> {
         inactiveColorPrimary: Colors.amberAccent,
       ),
       PersistentBottomNavBarItem(
-        icon: const Icon(Icons.shopping_cart),
+        icon: GetBuilder<PopularProductController>(builder: (cart) {
+          final totalItemsInCart = cart.totalItems;
+          return Stack(
+            children: [
+              const Icon(Icons.shopping_cart),
+              totalItemsInCart >= 1
+                  ? Positioned(
+                      right: 0,
+                      top: 0,
+                      child: IconWidget(
+                        icon: Icons.circle,
+                        size: Dimensions.width20 / 1.5,
+                        color: Colors.transparent,
+                        backgroundColor: AppColor.mainColor,
+                      ),
+                    )
+                  : Container(),
+              totalItemsInCart >= 1
+                  ? Positioned(
+                      top: -(Dimensions.height10 / 1.8),
+                      right: Dimensions.width10 / 2.8,
+                      child: SmallText(
+                        size: Dimensions.font10,
+                        color: Colors.white,
+                        text: totalItemsInCart.toString(),
+                      ),
+                    )
+                  : Container()
+            ],
+          );
+        }),
         title: ("Cart"),
         activeColorPrimary: AppColor.mainColor,
         inactiveColorPrimary: Colors.amberAccent,
@@ -58,12 +94,6 @@ class _HomePageState extends State<HomePage> {
         inactiveColorPrimary: Colors.amberAccent,
       ),
     ];
-  }
-
-  void onBottomItemClicked(int index) {
-    setState(() {
-      _activeIndex = index;
-    });
   }
 
   @override
@@ -79,6 +109,10 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final product = Get.find<PopularProductController>().popularProductList[0];
+    Get.find<PopularProductController>()
+        .initProduct(Get.find<CartController>(), product);
+
     return PersistentTabView(
       context,
       controller: _controller,
@@ -113,6 +147,14 @@ class _HomePageState extends State<HomePage> {
           NavBarStyle.style1, // Choose the nav bar style with this property.
     );
   }
+
+  // int _activeIndex = 0;
+
+  // void onBottomItemClicked(int index) {
+  //   setState(() {
+  //     _activeIndex = index;
+  //   });
+  // }
 
   /*@override
   Widget build(BuildContext context) {

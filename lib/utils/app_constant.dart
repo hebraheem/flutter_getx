@@ -5,6 +5,7 @@ class AppConstants {
   static const int APP_VERSION = 1;
 
   static const String TOKEN = "token";
+  static const String CART_KEY = "cart-list";
 
   //URL / URI
   static const String BASE_URL = "http://mvs.bslmeiyu.com/api/v1/";
