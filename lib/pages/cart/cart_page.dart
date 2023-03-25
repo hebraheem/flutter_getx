@@ -17,20 +17,61 @@ class CartPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final productController = Get.find<PopularProductController>();
-    // final cartController = Get.find<CartController>();
 
     return Scaffold(
-      bottomNavigationBar: Container(
-        decoration: BoxDecoration(
-          color: AppColor.buttonBackgroundColor,
-          borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(Dimensions.width20),
-              topRight: Radius.circular(Dimensions.width20)),
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [],
-        ),
+      bottomNavigationBar: GetBuilder<CartController>(
+        builder: (cartInstance) {
+          return Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Container(
+                width: double.maxFinite,
+                padding: EdgeInsets.only(
+                  top: Dimensions.height20,
+                  bottom: Dimensions.height20,
+                  left: Dimensions.width10 * 3,
+                  right: Dimensions.width10 * 3,
+                ),
+                decoration: BoxDecoration(
+                  color: AppColor.buttonBackgroundColor,
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(Dimensions.width30),
+                    topRight: Radius.circular(Dimensions.width30),
+                  ),
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Container(
+                      width: Dimensions.width20 * 5,
+                      height: Dimensions.height30 * 1.5,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(Dimensions.width10),
+                      ),
+                      child: Center(
+                        child: BigText(
+                          text: "\$${cartInstance.totalPrice.toString()}",
+                        ),
+                      ),
+                    ),
+                    GestureDetector(
+                      onTap: () {},
+                      child: Container(
+                        padding: EdgeInsets.all(Dimensions.height20),
+                        decoration: BoxDecoration(
+                            color: AppColor.mainColor,
+                            borderRadius:
+                                BorderRadius.circular(Dimensions.width20 * 2)),
+                        child: BigText(text: "Checkout", color: Colors.white),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          );
+        },
       ),
       body: Stack(
         children: [

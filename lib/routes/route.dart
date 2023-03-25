@@ -2,7 +2,7 @@ import 'package:get/get.dart';
 import 'package:get_x/pages/cart/cart_page.dart';
 import 'package:get_x/pages/food/popular_food_detail.dart';
 import 'package:get_x/pages/food/recomended_food_detail.dart';
-import 'package:get_x/pages/home/main_food_page.dart';
+import 'package:get_x/pages/home/home_page.dart';
 
 class Routes {
   static const String initial = '/';
@@ -21,7 +21,7 @@ class Routes {
   static List<GetPage> routes = [
     GetPage(
       name: "/",
-      page: () => const MainFoodPage(),
+      page: () => const HomePage(),
     ),
     GetPage(
       name: "/popular-food",
