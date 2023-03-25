@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_x/pages/cart/cart_page.dart';
 import 'package:get_x/pages/food/popular_food_detail.dart';
@@ -11,10 +10,10 @@ class Routes {
   static const String recommendedFood = '/recommended-food';
   static const String cart = '/cart';
 
-  static String getPopularFoodDetailPage(int pageId) =>
-      '$popularFood?pageId=$pageId';
-  static String getRecommendedFoodDetailPage(int pageId) =>
-      '$recommendedFood?pageId=$pageId';
+  static String getPopularFoodDetailPage(int pageId, String page) =>
+      '$popularFood?pageId=$pageId&page=$page';
+  static String getRecommendedFoodDetailPage(int pageId, String? page) =>
+      '$recommendedFood?pageId=$pageId&page=$page';
   static String getInitial() => initial;
 
   static String getCartPage() => cart;
@@ -28,16 +27,22 @@ class Routes {
       name: "/popular-food",
       page: () {
         var pageId = Get.parameters["pageId"];
-        return PopularFoodDetail(pageId: int.parse(pageId!));
+        var page = Get.parameters["page"];
+        return PopularFoodDetail(
+          pageId: int.parse(pageId!),
+          page: page!,
+        );
       },
       transition: Transition.fadeIn,
     ),
     GetPage(
       name: "/recommended-food",
       page: () {
-        var page = Get.parameters["pageId"];
+        var pageId = Get.parameters["pageId"];
+        var page = Get.parameters["page"];
         return RecommendedFoodDetail(
-          pageId: int.parse(page!),
+          pageId: int.parse(pageId!),
+          page: page!,
         );
       },
       transition: Transition.fadeIn,

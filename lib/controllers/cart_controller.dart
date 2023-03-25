@@ -9,7 +9,7 @@ class CartController extends GetxController {
   CartController({required this.cartRepo});
   final Map<int, CartM> _items = {};
   Map<int, CartM> get cartItems => _items;
-
+  List<int> cartToRemove = [];
   void addItemToCart(int quantity, Products product, int? inCartItems) {
     if (quantity == 0 && inCartItems! > 0) {
       Get.snackbar(
@@ -28,6 +28,7 @@ class CartController extends GetxController {
 
     if (_items.containsKey(product.id)) {
       _items.update(product.id!, (value) {
+        if (value.quantity! + quantity == 0) cartToRemove.add(product.id!);
         return CartM(
           id: value.id,
           quantity: value.quantity! + quantity,
@@ -36,9 +37,11 @@ class CartController extends GetxController {
           img: value.img,
           isExist: true,
           time: DateTime.now().toString(),
+          product: product,
         );
       });
     } else {
+      cartToRemove = [];
       _items.putIfAbsent(product.id!, () {
         return CartM(
           id: product.id,
@@ -48,9 +51,11 @@ class CartController extends GetxController {
           img: product.img,
           isExist: true,
           time: DateTime.now().toString(),
+          product: product,
         );
       });
     }
+    update();
   }
 
   bool existInCart(Products product) {
@@ -81,7 +86,9 @@ class CartController extends GetxController {
   }
 
   List<CartM> get carts {
+    _items.removeWhere((key, value) => cartToRemove.contains(key));
     return _items.entries.map((item) {
+      cartToRemove = [];
       return item.value;
     }).toList();
   }

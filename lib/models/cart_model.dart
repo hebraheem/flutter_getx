@@ -1,3 +1,5 @@
+import 'package:get_x/models/popular_product_model.dart';
+
 class CartModel {
   int? _totalSize;
   int? _typeId;
@@ -48,16 +50,17 @@ class CartM {
   bool? isExist;
   String? img;
   String? time;
+  Products? product;
 
-  CartM({
-    this.id,
-    this.name,
-    this.quantity,
-    this.price,
-    this.img,
-    this.isExist,
-    this.time,
-  });
+  CartM(
+      {this.id,
+      this.name,
+      this.quantity,
+      this.price,
+      this.img,
+      this.isExist,
+      this.time,
+      this.product});
 
   CartM.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -67,6 +70,7 @@ class CartM {
     isExist = json['isExist'];
     img = json['img'];
     time = json['time'];
+    product = Products.fromJson(json['product']);
   }
 
   Map<String, dynamic> toJson() {
