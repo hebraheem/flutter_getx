@@ -118,7 +118,7 @@ class CartPage extends StatelessWidget {
                                       children: [
                                         BigText(
                                           color: Colors.redAccent,
-                                          text: "\$ ${price.toString()}",
+                                          text: "\$${price.toString()}",
                                         ),
                                         Row(
                                           children: [
