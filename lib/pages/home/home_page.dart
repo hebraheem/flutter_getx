@@ -1,15 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:get_x/controllers/popular_product_controller.dart';
 import 'package:get_x/pages/cart/cart_page.dart';
 import 'package:get_x/pages/home/main_food_page.dart';
 import 'package:get_x/utils/colors.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
-
-import '../../controllers/cart_controller.dart';
-import '../../utils/dimensions.dart';
-import '../../widgets/icon_widget.dart';
-import '../../widgets/test_widgets.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
