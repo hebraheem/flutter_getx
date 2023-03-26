@@ -52,37 +52,7 @@ class _HomePageState extends State<HomePage> {
         inactiveColorPrimary: Colors.amberAccent,
       ),
       PersistentBottomNavBarItem(
-        icon: GetBuilder<PopularProductController>(builder: (cart) {
-          final totalItemsInCart = cart.totalItems;
-          return Stack(
-            children: [
-              const Icon(Icons.shopping_cart),
-              totalItemsInCart >= 1
-                  ? Positioned(
-                      right: 0,
-                      top: 0,
-                      child: IconWidget(
-                        icon: Icons.circle,
-                        size: Dimensions.width20 / 1.5,
-                        color: Colors.transparent,
-                        backgroundColor: AppColor.mainColor,
-                      ),
-                    )
-                  : Container(),
-              totalItemsInCart >= 1
-                  ? Positioned(
-                      top: -(Dimensions.height10 / 1.8),
-                      right: Dimensions.width10 / 2.8,
-                      child: SmallText(
-                        size: Dimensions.font10,
-                        color: Colors.white,
-                        text: totalItemsInCart.toString(),
-                      ),
-                    )
-                  : Container()
-            ],
-          );
-        }),
+        icon: const Icon(Icons.shopping_cart),
         title: ("Cart"),
         activeColorPrimary: AppColor.mainColor,
         inactiveColorPrimary: Colors.amberAccent,
@@ -109,10 +79,6 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    final product = Get.find<PopularProductController>().popularProductList[0];
-    Get.find<PopularProductController>()
-        .initProduct(Get.find<CartController>(), product);
-
     return PersistentTabView(
       context,
       controller: _controller,
