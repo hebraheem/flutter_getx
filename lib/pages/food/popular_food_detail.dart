@@ -102,18 +102,28 @@ class PopularFoodDetail extends StatelessWidget {
         body: Stack(
           children: [
             // background section
-            Positioned(
-              left: 0,
-              right: 0,
-              child: Container(
-                width: double.maxFinite,
-                height: (Dimensions.height20 * 14) + Dimensions.height10,
-                decoration: BoxDecoration(
-                    image: DecorationImage(
-                  image: NetworkImage(Utils.buildImagePath(product.img!)),
-                  fit: BoxFit.cover,
-                )),
-              ),
+            Column(
+              children: [
+                Expanded(
+                  child: SingleChildScrollView(
+                    child: Positioned(
+                      left: 0,
+                      right: 0,
+                      child: Container(
+                        width: double.maxFinite,
+                        height:
+                            (Dimensions.height20 * 14) + Dimensions.height10,
+                        decoration: BoxDecoration(
+                            image: DecorationImage(
+                          image:
+                              NetworkImage(Utils.buildImagePath(product.img!)),
+                          fit: BoxFit.cover,
+                        )),
+                      ),
+                    ),
+                  ),
+                )
+              ],
             ),
             // icon section
             Positioned(
@@ -188,41 +198,46 @@ class PopularFoodDetail extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Container(
-                    padding: EdgeInsets.only(
-                        left: Dimensions.width20, right: Dimensions.width20),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.only(
-                          topRight: Radius.circular(Dimensions.width20),
-                          topLeft: Radius.circular(Dimensions.width20)),
-                      color: Colors.white,
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        InfoCard(text: product.name!),
-                        SizedBox(height: Dimensions.height20),
-                        BigText(text: "Introduction"),
-                        Padding(
-                          padding: EdgeInsets.only(
-                              top: Dimensions.height5,
-                              bottom: Dimensions.height5),
-                          child: SizedBox(
-                            width: MediaQuery.of(context).size.width,
-                            height: Dimensions.height30 * 10,
-                            child: Column(
-                              children: [
-                                Expanded(
-                                  child: SingleChildScrollView(
-                                    child: ExpandableDescriptionText(
-                                        text: product.description!),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
+                  Expanded(
+                    child: SingleChildScrollView(
+                      child: Container(
+                        padding: EdgeInsets.only(
+                            left: Dimensions.width20,
+                            right: Dimensions.width20),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.only(
+                              topRight: Radius.circular(Dimensions.width20),
+                              topLeft: Radius.circular(Dimensions.width20)),
+                          color: Colors.white,
                         ),
-                      ],
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            InfoCard(text: product.name!),
+                            SizedBox(height: Dimensions.height20),
+                            BigText(text: "Introduction"),
+                            Padding(
+                              padding: EdgeInsets.only(
+                                  top: Dimensions.height5,
+                                  bottom: Dimensions.height5),
+                              child: SizedBox(
+                                width: MediaQuery.of(context).size.width,
+                                height: Dimensions.height30 * 10,
+                                child: Column(
+                                  children: [
+                                    Expanded(
+                                      child: SingleChildScrollView(
+                                        child: ExpandableDescriptionText(
+                                            text: product.description!),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
                     ),
                   ),
                 ],
