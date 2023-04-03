@@ -66,8 +66,13 @@ class CartPage extends StatelessWidget {
                                   color: AppColor.mainColor,
                                   borderRadius: BorderRadius.circular(
                                       Dimensions.width20 * 2)),
-                              child: BigText(
-                                  text: "Checkout", color: Colors.white),
+                              child: GestureDetector(
+                                onTap: () {
+                                  cartController.addToHistory();
+                                },
+                                child: BigText(
+                                    text: "Checkout", color: Colors.white),
+                              ),
                             ),
                           ),
                         ],
@@ -157,6 +162,7 @@ class CartPage extends StatelessWidget {
                                               .indexOf(
                                                 product.product,
                                               );
+
                                           var recommendedIndex = Get.find<
                                                   RecommendedProductController>()
                                               .recommendedProductList

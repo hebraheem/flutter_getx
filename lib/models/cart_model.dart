@@ -52,15 +52,16 @@ class CartM {
   String? time;
   Products? product;
 
-  CartM(
-      {this.id,
-      this.name,
-      this.quantity,
-      this.price,
-      this.img,
-      this.isExist,
-      this.time,
-      this.product});
+  CartM({
+    this.id,
+    this.name,
+    this.quantity,
+    this.price,
+    this.img,
+    this.isExist,
+    this.time,
+    this.product,
+  });
 
   CartM.fromJson(Map<String, dynamic> json) {
     id = json['id'];

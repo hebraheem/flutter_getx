@@ -11,6 +11,7 @@ class CartRepo {
   CartRepo({required this.sharedPreferences});
 
   List<String> cart = [];
+  List<String> cartHistory = [];
 
   void cartInStorage(List<CartM> cartList) {
     cart = [];
@@ -38,5 +39,13 @@ class CartRepo {
     }
 
     return cartList;
+  }
+
+  void addToCartHistory() {
+    for (var c in cart) {
+      cartHistory.add(c);
+    }
+    sharedPreferences.setStringList(AppConstants.CART_HISTORY_KEY, cartHistory);
+    sharedPreferences.remove(AppConstants.CART_KEY);
   }
 }

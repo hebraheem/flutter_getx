@@ -24,6 +24,7 @@ class RecommendedFoodDetail extends StatelessWidget {
         Get.find<RecommendedProductController>().recommendedProductList[pageId];
     Get.find<PopularProductController>()
         .initProduct(Get.find<CartController>(), product);
+    final bool isLandscape = context.isLandscape;
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -31,7 +32,8 @@ class RecommendedFoodDetail extends StatelessWidget {
         slivers: [
           SliverAppBar(
             automaticallyImplyLeading: false,
-            toolbarHeight: Dimensions.height20 * 4,
+            toolbarHeight:
+                isLandscape ? Dimensions.height10 * 5 : Dimensions.height20 * 4,
             title: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -109,7 +111,9 @@ class RecommendedFoodDetail extends StatelessWidget {
             ),
             pinned: true,
             backgroundColor: AppColor.mainColor,
-            expandedHeight: Dimensions.height30 * 10,
+            expandedHeight: isLandscape
+                ? Dimensions.height15 * 10
+                : Dimensions.height30 * 10,
             flexibleSpace: FlexibleSpaceBar(
               background: Image.network(
                 Utils.buildImagePath(product.img),

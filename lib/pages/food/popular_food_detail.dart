@@ -107,7 +107,9 @@ class PopularFoodDetail extends StatelessWidget {
             child: SingleChildScrollView(
               child: Container(
                 width: double.maxFinite,
-                height: (Dimensions.height20 * 14) + Dimensions.height10,
+                height: Get.context!.isLandscape
+                    ? Dimensions.height20 * 6
+                    : (Dimensions.height20 * 14) + Dimensions.height10,
                 decoration: BoxDecoration(
                     image: DecorationImage(
                   image: NetworkImage(Utils.buildImagePath(product.img!)),
@@ -183,9 +185,11 @@ class PopularFoodDetail extends StatelessWidget {
             left: 0,
             right: 0,
             bottom: 0,
-            top: (Dimensions.height20 * 14) +
-                Dimensions.height10 -
-                Dimensions.height30,
+            top: Get.context!.isLandscape
+                ? (Dimensions.height20 * 5) - Dimensions.height5
+                : (Dimensions.height20 * 14) +
+                    Dimensions.height10 -
+                    Dimensions.height30,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [

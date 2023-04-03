@@ -3,6 +3,9 @@ import "package:get/get.dart";
 class Dimensions {
   static double deviceHeight = Get.context!.height;
   static double deviceWidth = Get.context!.width;
+  static bool isLandscape = Get.context!.isLandscape;
+  // static double deviceHeight =
+  //     isLandscape ? Get.context!.height / 2 : Get.context!.height;
 
   // device height =884
   // device width = 411.3
