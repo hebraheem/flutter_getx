@@ -71,7 +71,7 @@ class CartPage extends StatelessWidget {
                                   cartController.addToHistory();
                                 },
                                 child: BigText(
-                                    text: "Checkout", color: Colors.white),
+                                    text: "Checkou", color: Colors.white),
                               ),
                             ),
                           ),
