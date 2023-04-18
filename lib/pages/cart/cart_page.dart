@@ -54,7 +54,7 @@ class CartPage extends StatelessWidget {
                             ),
                             child: Center(
                               child: BigText(
-                                text: "\$${cartInstance.totalPrice.toString()},
+                                text: "\$${cartInstance.totalPrice.toString()}",
                               ),
                             ),
                           ),
